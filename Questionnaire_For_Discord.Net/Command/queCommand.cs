@@ -9,7 +9,7 @@ namespace Questionnaire_For_Discord.Net.Command {
     public class QueCommand : ModuleBase {
 
         [Command("que", RunMode = RunMode.Async)]
-        public async Task que(params string[] msg) {
+        public async Task Que(params string[] msg) {
             if(msg.Length < 3) {
                 await ReplyAsync("むり");
                 return;
