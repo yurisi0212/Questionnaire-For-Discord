@@ -4,7 +4,11 @@
 
 simplepollのパクリです 
  
-C#とDiscord.Netの練習用に作りました。 
+C#とDiscord.Netの練習用に作りました。  
+
+名前長ったらしいですが昔作ったPMMPプラグインのDiscordBot版リメイクです。 
+
+https://github.com/yurisi0212/questionnaire
 
 ## 使い方 
 
