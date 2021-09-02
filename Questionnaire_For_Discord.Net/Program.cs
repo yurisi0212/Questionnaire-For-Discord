@@ -19,9 +19,7 @@ namespace Questionnaire_For_Discord.Net {
         }
 
         public async Task MainAsync() {
-            _client = new DiscordSocketClient(new DiscordSocketConfig {
-                LogLevel = LogSeverity.Info
-            });
+            _client = new DiscordSocketClient(new DiscordSocketConfig { LogLevel = LogSeverity.Info });
             _client.Log += Log;
             _commands = new CommandService();
             _services = new ServiceCollection().BuildServiceProvider();
@@ -38,9 +36,16 @@ namespace Questionnaire_For_Discord.Net {
             if (message == null) return;
             if (message.Author.IsBot) return;
 
-            var context = new CommandContext(_client, message);
-            var CommandContext = message.Content;
+            var argPos = 0;
+            var context = new SocketCommandContext(_client, message);
 
+            if (message.HasCharPrefix('!', ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) {
+                var result = await _commands.ExecuteAsync(context, argPos, _services);
+
+                if (!result.IsSuccess) {
+                    await context.Channel.SendMessageAsync(result.ErrorReason);
+                }
+            }
         }
 
         private Task Log(LogMessage message) {
